@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Money conversion - Somma{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="text-center">
+            <h1>Somma</h1>
+            <h2 class="fs-5 fst-italic">Fino al 1970 nel Regno Unito il sistema monetario prevedeva pence, shilling e pound. Un
+                pound valeva 20 shilling e uno shilling 12 pence (quindi un pound 240 pence).</h2>
+            Esempio di somma &gt; 5p 17s 8d + 3p 4s 10d= 9p 2s 6d
+
+            {# Visualizza il form #}
+            {% form_theme form 'bootstrap_5_layout.html.twig' %}
+            {{ form_start(form) }}
+
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    {{ form_row(form.addendo_1) }}
+                </div>
+                <div class="col-md-1 text-center">
+                    <span>+</span> <!-- Simbolo "+" tra i due addendi -->
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(form.addendo_2) }}
+                </div>
+                <div class="col-md-1 text-center">
+                    <span>=</span> <!-- Simbolo "=" prima del risultato -->
+                </div>
+                <div class="col-md-3 text-center">
+                    {# Mostra il risultato solo se disponibile in un paragrafo #}
+                    {% if result is not null %}
+                        <p class="fs-4 ms-1">{{ result }}</p> <!-- Risultato come paragrafo con margine sinistro per allineamento -->
+                    {% endif %}
+                </div>
+            </div>
+
+            {# Aggiungi il pulsante di submit in un contenitore centrato #}
+            <div class="d-flex justify-content-center mt-3">
+                {{ form_row(form.submit, {'attr': {'style': 'background-color: #93a996; border:none'}}) }}
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
