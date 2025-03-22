@@ -41,6 +41,84 @@ class MoneyConversionController extends AbstractController
         ]);
     }
 
+    #[Route('/sottrazione')]
+    public function sottrazione(Request $request): Response
+    {
+        $form = $this->createForm(Differenza::class);
+        $form->handleRequest($request);
+
+        $result = null;
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $minuendo = $data['minuendo'];
+            $sottraendo = $data['sottraendo'];
+
+            try {
+                $result = $this->calcolaRisultato($minuendo, $sottraendo, "differenza");
+            } catch (Exception $e) {
+                $form->get('sottraendo')->addError(new FormError("Il numero di pound del sottraendo non può essere più grande di quello del sottraendo"));
+            }
+
+        }
+
+        return $this->render('differenza.html.twig', [
+            'form' => $form->createView(),
+            'result' => $result,
+        ]);
+    }
+
+    /**
+     * @throws Exception
+     */
+    #[Route('/moltiplicazione')]
+    public function moltiplicazione(Request $request): Response
+    {
+        $form = $this->createForm(Moltiplicazione::class);
+        $form->handleRequest($request);
+
+        $result = null;
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $fattore_1 = $data['fattore_1'];
+            $fattore_2 = $data['fattore_2'];
+            $result = $this->calcolaRisultato($fattore_1, $fattore_2, "moltiplicazione");
+
+        }
+
+        return $this->render('moltiplicazione.html.twig', [
+            'form' => $form->createView(),
+            'result' => $result,
+        ]);
+    }
+
+    #[Route('/divisione')]
+    public function divisione(Request $request): Response
+    {
+        $form = $this->createForm(Divisione::class);
+        $form->handleRequest($request);
+
+        $result = null;
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $fattore_1 = $data['dividendo'];
+            $fattore_2 = $data['divisore'];
+            try {
+                $result = $this->calcolaRisultato($fattore_1, $fattore_2, "divisione");
+            } catch (Exception $e) {
+                $form->get('divisore')->addError(new FormError("Non è possibile dividere per 0"));
+            }
+
+        }
+
+        return $this->render('divisione.html.twig', [
+            'form' => $form->createView(),
+            'result' => $result,
+        ]);
+    }
+
     /**
      * @throws Exception
      */
@@ -133,83 +211,5 @@ class MoneyConversionController extends AbstractController
 
 
         return $total_pound . "p " . $total_shilling . "s " . $total_pence . "d" . $resto;
-    }
-
-    #[Route('/sottrazione')]
-    public function sottrazione(Request $request): Response
-    {
-        $form = $this->createForm(Differenza::class);
-        $form->handleRequest($request);
-
-        $result = null;
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $minuendo = $data['minuendo'];
-            $sottraendo = $data['sottraendo'];
-
-            try {
-                $result = $this->calcolaRisultato($minuendo, $sottraendo, "differenza");
-            } catch (Exception $e) {
-                $form->get('sottraendo')->addError(new FormError("Il numero di pound del sottraendo non può essere più grande di quello del sottraendo"));
-            }
-
-        }
-
-        return $this->render('differenza.html.twig', [
-            'form' => $form->createView(),
-            'result' => $result,
-        ]);
-    }
-
-    /**
-     * @throws Exception
-     */
-    #[Route('/moltiplicazione')]
-    public function moltiplicazione(Request $request): Response
-    {
-        $form = $this->createForm(Moltiplicazione::class);
-        $form->handleRequest($request);
-
-        $result = null;
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $fattore_1 = $data['fattore_1'];
-            $fattore_2 = $data['fattore_2'];
-            $result = $this->calcolaRisultato($fattore_1, $fattore_2, "moltiplicazione");
-
-        }
-
-        return $this->render('moltiplicazione.html.twig', [
-            'form' => $form->createView(),
-            'result' => $result,
-        ]);
-    }
-
-    #[Route('/divisione')]
-    public function divisione(Request $request): Response
-    {
-        $form = $this->createForm(Divisione::class);
-        $form->handleRequest($request);
-
-        $result = null;
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $fattore_1 = $data['dividendo'];
-            $fattore_2 = $data['divisore'];
-            try {
-                $result = $this->calcolaRisultato($fattore_1, $fattore_2, "divisione");
-            } catch (Exception $e) {
-                $form->get('divisore')->addError(new FormError("Non è possibile dividere per 0"));
-            }
-
-        }
-
-        return $this->render('divisione.html.twig', [
-            'form' => $form->createView(),
-            'result' => $result,
-        ]);
     }
 }
