@@ -1,25 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Money conversion - Somma{% endblock %}
+{% block title %}Money conversion - Moltiplicazione{% endblock %}
 
 {% block content %}
     <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="text-center">
-            <h1>Somma</h1>
-            Esempio di somma =&gt; 5p 17s 8d + 3p 4s 10d = 9p 2s 6d
+            <h1>Moltiplicazione</h1>
+            Esempio di moltiplicazione =&gt; 5p 17s 8d 2 = 11p 15 s 4d
 
             {% form_theme form 'bootstrap_5_layout.html.twig' %}
             {{ form_start(form) }}
 
             <div class="row align-items-center">
                 <div class="col-md-3">
-                    {{ form_row(form.addendo_1) }}
+                    {{ form_row(form.fattore_1) }}
                 </div>
                 <div class="col-md-1 text-center">
-                    <span>+</span>
+                    <span>*</span>
                 </div>
-                <div class="col-md-3">
-                    {{ form_row(form.addendo_2) }}
+                <div class="col-md-2">
+                    {{ form_row(form.fattore_2) }}
                 </div>
                 <div class="col-md-1 text-center">
                     <span>=</span>
@@ -30,6 +30,7 @@
                     {% endif %}
                 </div>
             </div>
+
             <div class="d-flex justify-content-center mt-3">
                 {{ form_row(form.submit, {'attr': {'style': 'background-color: #93a996; border:none'}}) }}
             </div>

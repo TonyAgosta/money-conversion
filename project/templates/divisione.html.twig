@@ -1,25 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Money conversion - Somma{% endblock %}
+{% block title %}Money conversion - Divisione{% endblock %}
 
 {% block content %}
     <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="text-center">
-            <h1>Somma</h1>
-            Esempio di somma =&gt; 5p 17s 8d + 3p 4s 10d = 9p 2s 6d
+            <h1>Divisione</h1>
+            Esempio di divisione =&gt; 18p 16s 1d/15 = 1p 5s Od (1s 1d)
 
             {% form_theme form 'bootstrap_5_layout.html.twig' %}
             {{ form_start(form) }}
 
             <div class="row align-items-center">
                 <div class="col-md-3">
-                    {{ form_row(form.addendo_1) }}
+                    {{ form_row(form.dividendo) }}
                 </div>
                 <div class="col-md-1 text-center">
-                    <span>+</span>
+                    <span>/</span>
                 </div>
-                <div class="col-md-3">
-                    {{ form_row(form.addendo_2) }}
+                <div class="col-md-2">
+                    <div class="position-relative">
+                        {{ form_widget(form.divisore, {
+                            'attr': {
+                                'data-bs-toggle': 'tooltip',
+                                'data-bs-placement': 'right',
+                                'title': form.divisore.vars.errors|length > 0 ? form.divisore.vars.errors[0].message : ''
+                            }
+                        }) }}
+                    </div>
                 </div>
                 <div class="col-md-1 text-center">
                     <span>=</span>
@@ -30,6 +38,7 @@
                     {% endif %}
                 </div>
             </div>
+
             <div class="d-flex justify-content-center mt-3">
                 {{ form_row(form.submit, {'attr': {'style': 'background-color: #93a996; border:none'}}) }}
             </div>
