@@ -31,7 +31,7 @@ class MoneyConversionController extends AbstractController
             $addendo_1 = $data['addendo_1'];
             $addendo_2 = $data['addendo_2'];
 
-            $result = $this->calcolaRisultato($addendo_1, $addendo_2, "somma");
+            $result = self::calcolaRisultato($addendo_1, $addendo_2, "somma");
 
         }
 
@@ -55,7 +55,7 @@ class MoneyConversionController extends AbstractController
             $sottraendo = $data['sottraendo'];
 
             try {
-                $result = $this->calcolaRisultato($minuendo, $sottraendo, "differenza");
+                $result = self::calcolaRisultato($minuendo, $sottraendo, "differenza");
             } catch (Exception $e) {
                 $form->get('sottraendo')->addError(new FormError("Il numero di pound del sottraendo non può essere più grande di quello del sottraendo"));
             }
@@ -83,7 +83,7 @@ class MoneyConversionController extends AbstractController
             $data = $form->getData();
             $fattore_1 = $data['fattore_1'];
             $fattore_2 = $data['fattore_2'];
-            $result = $this->calcolaRisultato($fattore_1, $fattore_2, "moltiplicazione");
+            $result = self::calcolaRisultato($fattore_1, $fattore_2, "moltiplicazione");
 
         }
 
@@ -106,7 +106,7 @@ class MoneyConversionController extends AbstractController
             $fattore_1 = $data['dividendo'];
             $fattore_2 = $data['divisore'];
             try {
-                $result = $this->calcolaRisultato($fattore_1, $fattore_2, "divisione");
+                $result = self::calcolaRisultato($fattore_1, $fattore_2, "divisione");
             } catch (Exception $e) {
                 $form->get('divisore')->addError(new FormError("Non è possibile dividere per 0"));
             }
@@ -122,7 +122,7 @@ class MoneyConversionController extends AbstractController
     /**
      * @throws Exception
      */
-    private function calcolaRisultato($input1, $input2, $operazione): string
+    public static function calcolaRisultato($input1, $input2, $operazione): string
     {
         $total_pound = 0;
         $total_shilling = 0;
