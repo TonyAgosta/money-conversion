@@ -37,6 +37,7 @@ RUN pecl install apcu && docker-php-ext-enable apcu
 
 RUN composer require symfony/twig-bundle
 RUN composer require symfony/asset
+RUN composer require symfony/form
 
 COPY php.ini /usr/local/etc/php/php.ini
 
