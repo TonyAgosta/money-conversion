@@ -1,0 +1,19 @@
+somma:
+  path: /api/somma
+  controller: App\Controller\MoneyConversionController::somma
+  methods: [POST]
+
+sottrazione:
+  path: /api/sottrazione
+  controller: App\Controller\MoneyConversionController::sottrazione
+  methods: [POST]
+
+moltiplicazione:
+  path: /api/moltiplicazione
+  controller: App\Controller\MoneyConversionController::moltiplicazione
+  methods: [POST]
+
+divisione:
+  path: /api/divisione
+  controller: App\Controller\MoneyConversionController::divisione
+  methods: [POST]
