@@ -3,13 +3,10 @@
 {% block title %}Money conversion - Differenza{% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
         <div class="text-center">
             <h1>Differenza</h1>
-            <h2 class="fs-5 fst-italic">Fino al 1970 nel Regno Unito il sistema monetario prevedeva pence, shilling e
-                pound. Un
-                pound valeva 20 shilling e uno shilling 12 pence (quindi un pound 240 pence).</h2>
-            Esempio di differenza &gt; 5p 17s 8d - 3p 4s 10d = 2p 12s 10d
+            Esempio di differenza =&gt; 5p 17s 8d - 3p 4s 10d = 2p 12s 10d
 
             {% form_theme form 'bootstrap_5_layout.html.twig' %}
             {{ form_start(form) }}
