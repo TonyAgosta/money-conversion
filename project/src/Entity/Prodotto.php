@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProdottoRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProdottoRepository::class)]
@@ -17,6 +18,11 @@ class Prodotto
     #[ORM\Column(length: 255)]
     private ?string $nome = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Regex(
+        pattern: '/^\d+p \d+s \d+d$/i',
+        message: 'Il prezzo deve avere il formato Xp Ys zD, ad esempio: 10p 5s 2d'
+    )]
     #[ORM\Column(length: 255)]
     private ?string $prezzo = null;
 

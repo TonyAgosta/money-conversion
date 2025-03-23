@@ -20,8 +20,8 @@ class ProdottoType extends AbstractType
                 'attr' => ['class' => 'form-control']
             ])
             ->add('prezzo', TextType::class, [
-                'label' => 'Prezzo',
-                'attr' => ['class' => 'form-control']
+                'label' => 'Prezzo (Xp Ys zD)',
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Es. 10p 5s 2d']
             ])
             ->add('descrizione', TextareaType::class, [
                 'label' => 'Descrizione',
