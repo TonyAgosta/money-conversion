@@ -39,6 +39,7 @@ RUN composer require symfony/twig-bundle
 RUN composer require symfony/asset
 RUN composer require symfony/form
 RUN composer require symfony/asset
+RUN composer require symfony/maker-bundle
 
 COPY php.ini /usr/local/etc/php/php.ini
 
