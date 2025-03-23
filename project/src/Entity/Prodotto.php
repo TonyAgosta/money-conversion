@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProdottoRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -71,6 +72,7 @@ class Prodotto
         return $this;
     }
 
+    #[Ignore]
     public function getIdAndName() : ?string
     {
         return $this->id .' - ' . $this->nome;

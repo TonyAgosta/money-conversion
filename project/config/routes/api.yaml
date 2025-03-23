@@ -17,3 +17,23 @@ divisione:
   path: /api/divisione
   controller: App\Controller\MoneyConversionController::divisione
   methods: [POST]
+
+list:
+  path: /api/catalogo
+  controller: App\Controller\ApiProductController::catalogo
+  methods: [GET]
+
+prodotto:
+  path: /api/prodotto/{id}
+  controller: App\Controller\ApiProductController::getProdotto
+  methods: [GET]
+
+edit:
+  path: /api/edit/{id}
+  controller: App\Controller\ApiProductController::editProdotto
+  methods: [GET]
+
+delete:
+  path: /api/delete/{id}
+  controller: App\Controller\ApiProductController::delete
+  methods: [GET]
