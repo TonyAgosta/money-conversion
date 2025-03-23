@@ -107,7 +107,7 @@ final class ProductController extends AbstractController
     {
         $prodotti = $entityManager->getRepository(Prodotto::class)->findAll();
 
-        return $this->render('product/prodotti.html.twig', [
+        return $this->render('product/catalogo.html.twig', [
             'prodotti' => $prodotti
         ]);
     }
