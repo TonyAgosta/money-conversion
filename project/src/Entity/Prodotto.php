@@ -58,17 +58,6 @@ class Prodotto
         return $this;
     }
 
-    public function getCodice(): ?string
-    {
-        return $this->codice;
-    }
-
-    public function setCodice(string $codice): static
-    {
-        $this->codice = $codice;
-
-        return $this;
-    }
 
     public function getDescrizione(): ?string
     {
