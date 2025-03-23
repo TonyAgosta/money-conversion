@@ -32,9 +32,9 @@
             {% for prodotto in prodotti %}
                 <tr>
                     <td>{{ prodotto.id }}</td>
-                    <td>{{ prodotto.nome }}</td>
+                    <td>{{ prodotto.nome | slice(0, 25) }}{% if prodotto.nome|length > 25 %}...{% endif %}</td>
                     <td>{{ prodotto.prezzo }}</td>
-                    <td>{{ prodotto.descrizione | default('Nessuna descrizione') }}</td>
+                    <td>{{ prodotto.descrizione | slice(0, 25) }}{% if prodotto.descrizione|length > 25 %}...{% endif %}</td>
                     <td>
                         <a href="{{ path('mostra_prodotto', { id: prodotto.id }) }}" class="btn btn-info btn-sm" style="background: #b0c4de; border:none">
                             <i class="bi bi-eye"></i>
