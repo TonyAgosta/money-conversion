@@ -10,6 +10,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ApiMoneyConversionController extends AbstractController
 {
+    public function isValidFormat($input): false|int
+    {
+        return preg_match('/^\d+p \d+s \d+d$/', $input);
+    }
+
     /**
      * @throws Exception
      */
@@ -18,8 +23,23 @@ class ApiMoneyConversionController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        $addendo_1 = $data['addendo_1'] ?? 0;
-        $addendo_2 = $data['addendo_2'] ?? 0;
+        $addendo_1 = $data['addendo_1'];
+        $addendo_2 = $data['addendo_2'];
+
+        if (!isset($addendo_1) || !isset($addendo_2)) {
+            return $this->json(['error' => "I campi addendo_1 e addendo_2 non possono essere lasciati vuoti"]
+                , Response::HTTP_BAD_REQUEST);
+        }
+
+
+        if (!$this->isValidFormat($addendo_1)) {
+            return $this->json(['error' => "Il formato del primo addendo è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
+                , Response::HTTP_BAD_REQUEST);
+        }
+        if (!$this->isValidFormat($addendo_2)) {
+            return $this->json(['error' => "Il formato del secondo addendo è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
+                , Response::HTTP_BAD_REQUEST);
+        }
 
         try {
             $result = MoneyConversionController::calcolaRisultato($addendo_1, $addendo_2, "somma");
@@ -34,11 +54,26 @@ class ApiMoneyConversionController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        $addendo_1 = $data['minuendo'] ?? 0;
-        $addendo_2 = $data['sottraendo'] ?? 0;
+        $minuendo = $data['minuendo'];
+        $sottraendo = $data['sottraendo'];
+
+
+        if (!isset($minuendo) || !isset($sottraendo)) {
+            return $this->json(['error' => "I campi minuendo e sottraendo non possono essere lasciati vuoti"]
+                , Response::HTTP_BAD_REQUEST);
+        }
+
+        if (!$this->isValidFormat($minuendo)) {
+            return $this->json(['error' => "Il formato del minuendo è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
+                , Response::HTTP_BAD_REQUEST);
+        }
+        if (!$this->isValidFormat($sottraendo)) {
+            return $this->json(['error' => "Il formato del sottraendo è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
+                , Response::HTTP_BAD_REQUEST);
+        }
 
         try {
-            $result = MoneyConversionController::calcolaRisultato($addendo_1, $addendo_2, "differenza");
+            $result = MoneyConversionController::calcolaRisultato($minuendo, $sottraendo, "differenza");
             return $this->json(['result' => $result]);
         } catch (Exception $e) {
             return $this->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
@@ -53,11 +88,27 @@ class ApiMoneyConversionController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        $addendo_1 = $data['fattore_1'] ?? 0;
-        $addendo_2 = $data['fattore_2'] ?? 0;
+        $fattore_1 = $data['fattore_1'];
+        $fattore_2 = $data['fattore_2'];
+
+        if (!isset($fattore_1) || !isset($fattore_2)) {
+            return $this->json(['error' => "I campi fattore_1 e fattore_2 non possono essere lasciati vuoti"]
+                , Response::HTTP_BAD_REQUEST);
+        }
+
+
+        if (!$this->isValidFormat($fattore_1)) {
+            return $this->json(['error' => "Il formato del primo fattore è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
+                , Response::HTTP_BAD_REQUEST);
+        }
+
+        if (!is_numeric($fattore_2)) {
+            return $this->json(['error' => "Il secondo fattore deve essere un intero"]
+                , Response::HTTP_BAD_REQUEST);
+        }
 
         try {
-            $result = MoneyConversionController::calcolaRisultato($addendo_1, $addendo_2, "moltiplicazione");
+            $result = MoneyConversionController::calcolaRisultato($fattore_1, $fattore_2, "moltiplicazione");
             return $this->json(['result' => $result]);
         } catch (Exception $e) {
             return $this->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
@@ -69,11 +120,21 @@ class ApiMoneyConversionController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        $addendo_1 = $data['dividendo'] ?? 0;
-        $addendo_2 = $data['divisore'] ?? 0;
+        $dividendo = $data['dividendo'];
+        $divisore = $data['divisore'];
 
+        if (!$this->isValidFormat($dividendo)) {
+            return $this->json(['error' => "Il formato del dividendo è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
+                , Response::HTTP_BAD_REQUEST);
+        }
+
+        if ($divisore == 0) {
+            return $this->json(['error' => "Il divisore deve essere maggiore di zero"]
+                , Response::HTTP_BAD_REQUEST);
+        }
+        
         try {
-            $result = MoneyConversionController::calcolaRisultato($addendo_1, $addendo_2, "divisione");
+            $result = MoneyConversionController::calcolaRisultato($dividendo, $divisore, "divisione");
             return $this->json(['result' => $result]);
         } catch (Exception $e) {
             return $this->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
