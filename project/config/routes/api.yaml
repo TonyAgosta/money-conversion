@@ -28,6 +28,11 @@ prodotto:
   controller: App\Controller\ApiProductController::getProdotto
   methods: [ GET ]
 
+add:
+  path: /api/aggiungi-prodotto
+  controller: App\Controller\ApiProductController::aggiungiProdotto
+  methods: [ GET ]
+
 edit:
   path: /api/edit/{id}
   controller: App\Controller\ApiProductController::editProdotto

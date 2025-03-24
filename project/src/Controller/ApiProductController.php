@@ -28,7 +28,7 @@ class ApiProductController extends AbstractController
         $prodotto = $entityManager->getRepository(Prodotto::class)->find($id);
 
         if (!$prodotto) {
-            return $this->json(['error' => 'Prodotto non trovato'], Response::HTTP_NOT_FOUND);
+            return $this->json(['error' => 'Prodotto con id '. $id .' non trovato'], Response::HTTP_NOT_FOUND);
         }
 
         return $this->json(['result' => $prodotto]);
@@ -38,20 +38,20 @@ class ApiProductController extends AbstractController
      * @throws Exception
      */
     #[Route('/api/aggiungi-prodotto', name: 'aggiungi_prodotto', methods: ['POST'])]
-    public function aggiungiProdotto(Request $request): Response
+    public function aggiungiProdotto(Request $request, EntityManagerInterface $entityManager): Response
     {
         $data = json_decode($request->getContent(), true);
 
-        $nome = $data['nome'];
-        $prezzo = $data['prezzo'];
+        $nome = $data['nome'] ?? null;
+        $prezzo = $data['prezzo'] ?? null;
         $descrizione = $data['descrizione'];
 
         if (!isset($nome)) {
-            return $this->json(['error' => "Il campo \"nome\" puo essere vuoto"]
+            return $this->json(['error' => "Il campo nome puo essere vuoto"]
                 , Response::HTTP_BAD_REQUEST);
         }
         if (!isset($prezzo)) {
-            return $this->json(['error' => "Il campo \"prezzo\" puo essere vuoto"]
+            return $this->json(['error' => "Il campo prezzo puo essere vuoto"]
                 , Response::HTTP_BAD_REQUEST);
         }
 
@@ -67,6 +67,8 @@ class ApiProductController extends AbstractController
         if (isset($descrizione)) {
             $prodotto->setDescrizione($descrizione);
         }
+        $entityManager->persist($prodotto);
+        $entityManager->flush();
 
         return $this->json(['result' => $prodotto]);
 
@@ -75,24 +77,24 @@ class ApiProductController extends AbstractController
     /**
      * @throws Exception
      */
-    #[Route('/api/edit/{id}', name: 'edit', methods: ['POST'])]
+    #[Route('/api/edit/{id}', name: 'api-edit', methods: ['POST'])]
     public function editProdotto(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
         $prodotto = $entityManager->getRepository(Prodotto::class)->find($id);
         $data = json_decode($request->getContent(), true);
 
         if (!$prodotto) {
-            return $this->json(['error' => 'Prodotto non trovato'], Response::HTTP_NOT_FOUND);
+            return $this->json(['error' => 'Prodotto con id ' . $id . ' non trovato'], Response::HTTP_NOT_FOUND);
         }
 
-        $nome = $data['nome'];
-        $prezzo = $data['prezzo'];
-        $descrizione = $data['descrizione'];
+        $nome = $data['nome'] ?? null;
+        $prezzo = $data['prezzo'] ?? null;
+        $descrizione = $data['descrizione'] ?? null;
 
         if (isset($nome)) {
             $prodotto->setNome($nome);
         }
-        if(!ApiMoneyConversionController::isValidFormat($prezzo)) {
+        if(isset($prezzo) && !ApiMoneyConversionController::isValidFormat($prezzo)) {
             return $this->json(['error' => "Il formato del prezzo è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
                 , Response::HTTP_BAD_REQUEST);
         }
@@ -107,18 +109,18 @@ class ApiProductController extends AbstractController
 
     }
 
-    #[Route('/api/delete/{id}', name: 'delete', methods: ['POST'])]
+    #[Route('/api/delete/{id}', name: 'api-delete', methods: ['POST'])]
     public function delete(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
         $prodotto = $entityManager->getRepository(Prodotto::class)->find($id);
         if (!$prodotto) {
-            return $this->json(['error' => 'Prodotto non trovato'], Response::HTTP_NOT_FOUND);
+            return $this->json(['error' => 'Prodotto con id ' . $id .' non trovato'], Response::HTTP_NOT_FOUND);
         }
         $idAndName = $prodotto->getIdAndName();
         $entityManager->remove($prodotto);
         $entityManager->flush();
 
-        return $this->json(['error' => "Prodotto $idAndName elminato!"], Response::HTTP_OK);
+        return $this->json(['result' => "Prodotto $idAndName elminato!"], Response::HTTP_OK);
 
     }
 }
