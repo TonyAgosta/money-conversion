@@ -18,13 +18,13 @@ class ApiMoneyConversionController extends AbstractController
     /**
      * @throws Exception
      */
-    #[Route('/api/somma', name: 'somma', methods: ['POST'])]
+    #[Route('/api/somma', name: 'api-somma', methods: ['POST'])]
     public function somma(Request $request): Response
     {
         $data = json_decode($request->getContent(), true);
 
-        $addendo_1 = $data['addendo_1'];
-        $addendo_2 = $data['addendo_2'];
+        $addendo_1 = $data['addendo_1'] ?? null;
+        $addendo_2 = $data['addendo_2'] ?? null;
 
         if (!isset($addendo_1) || !isset($addendo_2)) {
             return $this->json(['error' => "I campi addendo_1 e addendo_2 non possono essere lasciati vuoti"]
@@ -49,13 +49,13 @@ class ApiMoneyConversionController extends AbstractController
         }
     }
 
-    #[Route('/api/sottrazione', name: 'sottrazione', methods: ['POST'])]
+    #[Route('/api/sottrazione', name: 'api-sottrazione', methods: ['POST'])]
     public function sottrazione(Request $request): Response
     {
         $data = json_decode($request->getContent(), true);
 
-        $minuendo = $data['minuendo'];
-        $sottraendo = $data['sottraendo'];
+        $minuendo = $data['minuendo'] ?? null;
+        $sottraendo = $data['sottraendo'] ?? null;
 
 
         if (!isset($minuendo) || !isset($sottraendo)) {
@@ -83,13 +83,13 @@ class ApiMoneyConversionController extends AbstractController
     /**
      * @throws Exception
      */
-    #[Route('/api/moltiplicazione', name: 'moltiplicazione', methods: ['POST'])]
+    #[Route('/api/moltiplicazione', name: 'api-moltiplicazione', methods: ['POST'])]
     public function moltiplicazione(Request $request): Response
     {
         $data = json_decode($request->getContent(), true);
 
-        $fattore_1 = $data['fattore_1'];
-        $fattore_2 = $data['fattore_2'];
+        $fattore_1 = $data['fattore_1'] ?? null;
+        $fattore_2 = $data['fattore_2'] ?? null;
 
         if (!isset($fattore_1) || !isset($fattore_2)) {
             return $this->json(['error' => "I campi fattore_1 e fattore_2 non possono essere lasciati vuoti"]
@@ -108,33 +108,33 @@ class ApiMoneyConversionController extends AbstractController
         }
 
         try {
-            $result = MoneyConversionController::calcolaRisultato($fattore_1, $fattore_2, "moltiplicazione");
+            $result = MoneyConversionController::calcolaRisultato($fattore_1, (int)$fattore_2, "moltiplicazione");
             return $this->json(['result' => $result]);
         } catch (Exception $e) {
             return $this->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
     }
 
-    #[Route('/api/divisione', name: 'divisione', methods: ['POST'])]
+    #[Route('/api/divisione', name: 'api-divisione', methods: ['POST'])]
     public function divisione(Request $request): Response
     {
         $data = json_decode($request->getContent(), true);
 
-        $dividendo = $data['dividendo'];
-        $divisore = $data['divisore'];
+        $dividendo = $data['dividendo'] ?? null;
+        $divisore = $data['divisore'] ?? null;
 
         if (!self::isValidFormat($dividendo)) {
             return $this->json(['error' => "Il formato del dividendo è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
                 , Response::HTTP_BAD_REQUEST);
         }
 
-        if ($divisore == 0) {
+        if ((int)$divisore == 0 || (int)$divisore <0) {
             return $this->json(['error' => "Il divisore deve essere maggiore di zero"]
                 , Response::HTTP_BAD_REQUEST);
         }
 
         try {
-            $result = MoneyConversionController::calcolaRisultato($dividendo, $divisore, "divisione");
+            $result = MoneyConversionController::calcolaRisultato($dividendo, (int)$divisore, "divisione");
             return $this->json(['result' => $result]);
         } catch (Exception $e) {
             return $this->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
