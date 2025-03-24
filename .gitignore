@@ -1,2 +1,4 @@
 .idea
 vendor/
+project/.env
+project/.env.dev
