@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ApiMoneyConversionController extends AbstractController
 {
-    public function isValidFormat($input): false|int
+    public static function isValidFormat($input): false|int
     {
         return preg_match('/^\d+p \d+s \d+d$/', $input);
     }
@@ -32,11 +32,11 @@ class ApiMoneyConversionController extends AbstractController
         }
 
 
-        if (!$this->isValidFormat($addendo_1)) {
+        if (!self::isValidFormat($addendo_1)) {
             return $this->json(['error' => "Il formato del primo addendo è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
                 , Response::HTTP_BAD_REQUEST);
         }
-        if (!$this->isValidFormat($addendo_2)) {
+        if (!self::isValidFormat($addendo_2)) {
             return $this->json(['error' => "Il formato del secondo addendo è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
                 , Response::HTTP_BAD_REQUEST);
         }
@@ -63,11 +63,11 @@ class ApiMoneyConversionController extends AbstractController
                 , Response::HTTP_BAD_REQUEST);
         }
 
-        if (!$this->isValidFormat($minuendo)) {
+        if (!self::isValidFormat($minuendo)) {
             return $this->json(['error' => "Il formato del minuendo è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
                 , Response::HTTP_BAD_REQUEST);
         }
-        if (!$this->isValidFormat($sottraendo)) {
+        if (!self::isValidFormat($sottraendo)) {
             return $this->json(['error' => "Il formato del sottraendo è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
                 , Response::HTTP_BAD_REQUEST);
         }
@@ -97,7 +97,7 @@ class ApiMoneyConversionController extends AbstractController
         }
 
 
-        if (!$this->isValidFormat($fattore_1)) {
+        if (!self::isValidFormat($fattore_1)) {
             return $this->json(['error' => "Il formato del primo fattore è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
                 , Response::HTTP_BAD_REQUEST);
         }
@@ -123,7 +123,7 @@ class ApiMoneyConversionController extends AbstractController
         $dividendo = $data['dividendo'];
         $divisore = $data['divisore'];
 
-        if (!$this->isValidFormat($dividendo)) {
+        if (!self::isValidFormat($dividendo)) {
             return $this->json(['error' => "Il formato del dividendo è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
                 , Response::HTTP_BAD_REQUEST);
         }

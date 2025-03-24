@@ -34,6 +34,43 @@ class ApiProductController extends AbstractController
         return $this->json(['result' => $prodotto]);
     }
 
+    /**
+     * @throws Exception
+     */
+    #[Route('/api/aggiungi-prodotto', name: 'aggiungi_prodotto', methods: ['POST'])]
+    public function aggiungiProdotto(Request $request): Response
+    {
+        $data = json_decode($request->getContent(), true);
+
+        $nome = $data['nome'];
+        $prezzo = $data['prezzo'];
+        $descrizione = $data['descrizione'];
+
+        if (!isset($nome)) {
+            return $this->json(['error' => "Il campo \"nome\" puo essere vuoto"]
+                , Response::HTTP_BAD_REQUEST);
+        }
+        if (!isset($prezzo)) {
+            return $this->json(['error' => "Il campo \"prezzo\" puo essere vuoto"]
+                , Response::HTTP_BAD_REQUEST);
+        }
+
+        if(!ApiMoneyConversionController::isValidFormat($prezzo)) {
+            return $this->json(['error' => "Il formato del prezzo è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
+                , Response::HTTP_BAD_REQUEST);
+        }
+
+        $prodotto = new Prodotto();
+        $prodotto->setNome($nome);
+        $prodotto->setPrezzo($prezzo);
+
+        if (isset($descrizione)) {
+            $prodotto->setDescrizione($descrizione);
+        }
+
+        return $this->json(['result' => $prodotto]);
+
+    }
 
     /**
      * @throws Exception
@@ -49,11 +86,15 @@ class ApiProductController extends AbstractController
         }
 
         $nome = $data['nome'];
-        $prezzo = $data['prezzo'] ?? 0;
+        $prezzo = $data['prezzo'];
         $descrizione = $data['descrizione'];
 
         if (isset($nome)) {
             $prodotto->setNome($nome);
+        }
+        if(!ApiMoneyConversionController::isValidFormat($prezzo)) {
+            return $this->json(['error' => "Il formato del prezzo è errato. Deve essere scritto in questo modo: Xp Ys Zd"]
+                , Response::HTTP_BAD_REQUEST);
         }
         if (isset($prezzo)) {
             $prodotto->setPrezzo($prezzo);
