@@ -43,7 +43,6 @@ services:
             - "money-conversion.local:127.0.0.1"
         environment:
             - VIRTUAL_HOST=money-conversion.local
-        #command:  /bin/bash -c "echo '127.0.0.1 money-conversion.local' >> /etc/hosts && composer install && bin/console doctrine:migrations:migrate --no-interaction && apache2-foreground"
         command: /bin/bash -c "echo '127.0.0.1 money-conversion.local' >> /etc/hosts &&
             apache2-foreground" && 
             composer install &&
