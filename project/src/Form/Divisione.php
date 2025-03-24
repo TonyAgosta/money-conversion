@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints\Positive;
 
 class Divisione extends AbstractType
 {
@@ -24,9 +25,12 @@ class Divisione extends AbstractType
             ])
             ->add('divisore', IntegerType::class, [
                 'attr' => ['class' => 'tinymce'],
+                'constraints' => [
+                    new Positive(['message' => 'Il divisore deve essere maggiore di 0']),
+                ],
                 'label' => ' ',
                 'required' => true,
             ])
-            ->add('submit', SubmitType::class, ['label' => 'Calcola Differenza']);
+            ->add('submit', SubmitType::class, ['label' => 'Calcola']);
     }
 }

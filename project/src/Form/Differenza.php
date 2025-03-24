@@ -29,6 +29,6 @@ class Differenza extends AbstractType
                 'label' => ' ',
                 'required' => true,
             ])
-            ->add('submit', SubmitType::class, ['label' => 'Calcola Differenza']);
+            ->add('submit', SubmitType::class, ['label' => 'Calcola']);
     }
 }

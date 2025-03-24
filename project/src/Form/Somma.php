@@ -31,6 +31,6 @@ class Somma extends AbstractType
                 'label' => ' ',
                 'required' => true,
             ])
-            ->add('submit', SubmitType::class, ['label' => 'Calcola Somma']);
+            ->add('submit', SubmitType::class, ['label' => 'Calcola']);
     }
 }

@@ -132,7 +132,7 @@ class ApiMoneyConversionController extends AbstractController
             return $this->json(['error' => "Il divisore deve essere maggiore di zero"]
                 , Response::HTTP_BAD_REQUEST);
         }
-        
+
         try {
             $result = MoneyConversionController::calcolaRisultato($dividendo, $divisore, "divisione");
             return $this->json(['result' => $result]);

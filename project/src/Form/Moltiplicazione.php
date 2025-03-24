@@ -27,6 +27,6 @@ class Moltiplicazione extends AbstractType
                 'label' => ' ',
                 'required' => true,
             ])
-            ->add('submit', SubmitType::class, ['label' => 'Calcola prodotto']);
+            ->add('submit', SubmitType::class, ['label' => 'Calcola']);
     }
 }
