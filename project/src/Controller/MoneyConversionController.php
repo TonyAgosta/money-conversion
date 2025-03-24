@@ -57,7 +57,7 @@ class MoneyConversionController extends AbstractController
             try {
                 $result = self::calcolaRisultato($minuendo, $sottraendo, "differenza");
             } catch (Exception $e) {
-                $form->get('sottraendo')->addError(new FormError("Il numero di pound del sottraendo non può essere più grande di quello del sottraendo"));
+                $form->get('sottraendo')->addError(new FormError("Il numero di pound del sottraendo non può essere più grande di quello del minuendo"));
             }
 
         }
