@@ -8,7 +8,7 @@
         {# Breadcrumb per tornare alla lista dei prodotti #}
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ path('catalogo') }}" class="text-decoration-none">Torna al catalogo</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('mostra_prodotto', { id: prodotto.id }) }}" class="text-decoration-none">Torna al prodotto</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Aggiungi Prodotto</li>
             </ol>
         </nav>

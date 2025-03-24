@@ -3,7 +3,14 @@
 {% block title %}Money conversion - Divisione{% endblock %}
 
 {% block content %}
+    <nav aria-label="breadcrumb" style="margin-top: 20px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_home') }}" class="text-decoration-none">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Divisione</li>
+        </ol>
+    </nav>
     <div class="d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
+
         <div class="text-center">
             <h1>Divisione</h1>
             Esempio di divisione =&gt; (18p 16s 1d) / 15 = 1p 5s Od (1s 1d)
