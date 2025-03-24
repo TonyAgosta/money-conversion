@@ -3,14 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Prodotto;
-use App\Form\Differenza;
-use App\Form\Divisione;
-use App\Form\Moltiplicazione;
-use App\Form\Somma;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -20,8 +15,6 @@ class ApiProductController extends AbstractController
     /**
      * @throws Exception
      */
-
-
     #[Route('/api/list', methods: ['GET'])]
     public function catalogo(EntityManagerInterface $entityManager): Response
     {
@@ -59,13 +52,13 @@ class ApiProductController extends AbstractController
         $prezzo = $data['prezzo'] ?? 0;
         $descrizione = $data['descrizione'];
 
-        if(isset($nome)) {
+        if (isset($nome)) {
             $prodotto->setNome($nome);
         }
-        if(isset($prezzo)) {
+        if (isset($prezzo)) {
             $prodotto->setPrezzo($prezzo);
         }
-        if(isset($descrizione)){
+        if (isset($descrizione)) {
             $prodotto->setDescrizione($descrizione);
         }
 

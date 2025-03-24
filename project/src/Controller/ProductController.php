@@ -32,7 +32,7 @@ final class ProductController extends AbstractController
             $entityManager->persist($product);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Il prodotto ' . $product->getIdAndName() .' è stato aggiunto con successo');
+            $this->addFlash('success', 'Il prodotto ' . $product->getIdAndName() . ' è stato aggiunto con successo');
             return $this->redirectToRoute('catalogo');
         }
 
@@ -59,7 +59,7 @@ final class ProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            $this->addFlash('success', 'Il prodotto ' . $product->getIdAndName() .' è stato modificato con successo');
+            $this->addFlash('success', 'Il prodotto ' . $product->getIdAndName() . ' è stato modificato con successo');
             return $this->redirectToRoute('catalogo');
         }
 
@@ -75,10 +75,10 @@ final class ProductController extends AbstractController
 
         if (!$product) {
             throw $this->createNotFoundException(
-                'Nesun prodotto con id '. $product->getId() . 'trovato!'
+                'Nesun prodotto con id ' . $product->getId() . 'trovato!'
             );
         }
-        $this->addFlash('success', 'Il prodotto ' . $product->getIdAndName() .' è stato eliminato con successo') ;
+        $this->addFlash('success', 'Il prodotto ' . $product->getIdAndName() . ' è stato eliminato con successo');
         $entityManager->remove($product);
         $entityManager->flush();
         return $this->redirectToRoute('catalogo');
@@ -99,7 +99,6 @@ final class ProductController extends AbstractController
             'product' => $product,
         ]);
     }
-
 
 
     #[Route('/catalogo', name: 'catalogo')]

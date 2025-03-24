@@ -2,13 +2,8 @@
 
 namespace App\Controller;
 
-use App\Form\Differenza;
-use App\Form\Divisione;
-use App\Form\Moltiplicazione;
-use App\Form\Somma;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,8 +13,6 @@ class ApiMoneyConversionController extends AbstractController
     /**
      * @throws Exception
      */
-
-
     #[Route('/api/somma', name: 'somma', methods: ['POST'])]
     public function somma(Request $request): Response
     {
@@ -31,7 +24,7 @@ class ApiMoneyConversionController extends AbstractController
         try {
             $result = MoneyConversionController::calcolaRisultato($addendo_1, $addendo_2, "somma");
             return $this->json(['result' => $result]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
     }
@@ -47,7 +40,7 @@ class ApiMoneyConversionController extends AbstractController
         try {
             $result = MoneyConversionController::calcolaRisultato($addendo_1, $addendo_2, "differenza");
             return $this->json(['result' => $result]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
     }
@@ -66,7 +59,7 @@ class ApiMoneyConversionController extends AbstractController
         try {
             $result = MoneyConversionController::calcolaRisultato($addendo_1, $addendo_2, "moltiplicazione");
             return $this->json(['result' => $result]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
     }
@@ -82,7 +75,7 @@ class ApiMoneyConversionController extends AbstractController
         try {
             $result = MoneyConversionController::calcolaRisultato($addendo_1, $addendo_2, "divisione");
             return $this->json(['result' => $result]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
     }

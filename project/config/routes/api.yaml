@@ -1,39 +1,39 @@
 somma:
   path: /api/somma
   controller: App\Controller\MoneyConversionController::somma
-  methods: [POST]
+  methods: [ POST ]
 
 sottrazione:
   path: /api/sottrazione
   controller: App\Controller\MoneyConversionController::sottrazione
-  methods: [POST]
+  methods: [ POST ]
 
 moltiplicazione:
   path: /api/moltiplicazione
   controller: App\Controller\MoneyConversionController::moltiplicazione
-  methods: [POST]
+  methods: [ POST ]
 
 divisione:
   path: /api/divisione
   controller: App\Controller\MoneyConversionController::divisione
-  methods: [POST]
+  methods: [ POST ]
 
 list:
   path: /api/catalogo
   controller: App\Controller\ApiProductController::catalogo
-  methods: [GET]
+  methods: [ GET ]
 
 prodotto:
   path: /api/prodotto/{id}
   controller: App\Controller\ApiProductController::getProdotto
-  methods: [GET]
+  methods: [ GET ]
 
 edit:
   path: /api/edit/{id}
   controller: App\Controller\ApiProductController::editProdotto
-  methods: [GET]
+  methods: [ GET ]
 
 delete:
   path: /api/delete/{id}
   controller: App\Controller\ApiProductController::delete
-  methods: [GET]
+  methods: [ GET ]

@@ -73,8 +73,8 @@ class Prodotto
     }
 
     #[Ignore]
-    public function getIdAndName() : ?string
+    public function getIdAndName(): ?string
     {
-        return $this->id .' - ' . $this->nome;
+        return $this->id . ' - ' . $this->nome;
     }
 }

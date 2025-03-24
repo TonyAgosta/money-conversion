@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -21,7 +22,6 @@ class Differenza extends AbstractType
                 'label' => ' ',
                 'required' => true,
             ])
-
             ->add('submit', SubmitType::class, ['label' => 'Calcola Differenza']);
     }
 }
