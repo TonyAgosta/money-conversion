@@ -22,9 +22,6 @@ Sarà possibile fare le le principali operazioni aritmetiche e interagire con un
    ```
 4. Esegui le migrazioni dentro il container docker
     ```shell
-   docker exec -it money_conversion bash
-   cd project
-   php bin/console make:migration
-   php bin/console doctrine:migrations:migrate
+   docker exec -it money_conversion bash -c "cd project && php bin/console make:migration && php bin/console doctrine:migrations:migrate"
     ```
 5. Vai alla pagina localhost:8741 !
