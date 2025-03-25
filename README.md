@@ -11,7 +11,7 @@ interfaccia che tramite chiamate API.
     git clone https://github.com/TonyAgosta/money-conversion.git
    ```
 
-2. Aggiorna le informazioni relative al db
+2. Aggiorna la variabile di ambiente relatival db nel file .env
    ```sh
    cd money-conversion/project
    ```
@@ -32,9 +32,9 @@ interfaccia che tramite chiamate API.
    ```
 5. Esegui le migrazioni dentro il container docker
     ```shell
-   sudo docker exec -it money_conversion bash -c "cd project && php bin/console doctrine:migrations:migrate --no-interaction"
+   docker exec -it money_conversion bash -c "cd project && php bin/console doctrine:migrations:migrate --no-interaction"
     ```
-6. Vai alla pagina localhost:8741 !
+6. Vai alla pagina ```localhost:8741``` !
 
 ## API REST
 
