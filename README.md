@@ -27,10 +27,10 @@ Sarà possibile fare le le principali operazioni aritmetiche e interagire con un
    ```
 4. Installa il progetto
    ```sh
-   docker exec -it monet_conversion bash -c "cd project && composer install"
+   docker exec -it money_conversion bash -c "cd project && composer install"
    ```
 5. Esegui le migrazioni dentro il container docker
     ```shell
-   docker exec -it money_conversion bash -c "cd project && php bin/console make:migration && php bin/console doctrine:migrations:migrate"
+   sudo docker exec -it money_conversion bash -c "cd project && php bin/console doctrine:migrations:migrate --no-interaction"
     ```
 6. Vai alla pagina localhost:8741 !
