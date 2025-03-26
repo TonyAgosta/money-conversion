@@ -12,13 +12,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class ProductController extends AbstractController
 {
-    #[Route('/prodotto', name: 'prodotto')]
-    public function index(): Response
-    {
-        return $this->render('product/index.html.twig', [
-            'controller_name' => 'ProductController',
-        ]);
-    }
 
     #[Route('/aggiungi-prodotto', name: 'crea_prodotto')]
     public function creaProdotto(Request $request, EntityManagerInterface $entityManager): Response

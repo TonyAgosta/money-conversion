@@ -11,7 +11,7 @@ interfaccia che tramite chiamate API.
     git clone https://github.com/TonyAgosta/money-conversion.git
    ```
 
-2. Aggiorna la variabile di ambiente relatival db nel file .env
+2. Set up delle variabili di ambiente
    ```sh
    cd money-conversion/project
    ```
