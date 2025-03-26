@@ -42,6 +42,7 @@ RUN composer require symfony/asset
 RUN composer require symfony/maker-bundle
 RUN composer require symfony/validator
 RUN composer require symfony/serializer
+RUN composer require --dev symfony/test-pack
 COPY php.ini /usr/local/etc/php/php.ini
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
